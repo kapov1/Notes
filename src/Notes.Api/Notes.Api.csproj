@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Notes.Application/Notes.Application.csproj" />
+    <ProjectReference Include="../Notes.Infrastrutcure/Notes.Infrastrutcure.csproj" />
+    <ProjectReference Include="../Notes.Shared/Notes.Shared.csproj" />
+  </ItemGroup>
+
 </Project>
