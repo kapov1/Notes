@@ -1,6 +1,6 @@
 namespace Notes.Shared.Results;
 
-public partial class Result<T> : Result where T : notnull 
+public class Result<T> : Result where T : notnull 
 {
     private readonly T? _value;
 
