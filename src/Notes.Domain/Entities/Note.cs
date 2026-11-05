@@ -4,22 +4,22 @@ public class Note
 {
     public Note(
         string title,
-        string author,
+        int authorId,
         string content,
         IEnumerable<Tags> tags)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(title);
-        ArgumentException.ThrowIfNullOrWhiteSpace(author);
         ArgumentException.ThrowIfNullOrWhiteSpace(content);
+        if (Id <= 0) throw new ArgumentException();
 
         Title = title;
-        Author = author;
+        AuthorId = authorId;
         Tags = tags;
     }
 
     public int Id { get; private set; }
+    public int AuthorId { get; private set; }
     public string Title { get; private set; } = string.Empty;
-    public string Author { get; private set; } = string.Empty;
     public string Content { get; private set; } = string.Empty;
     public IEnumerable<Tags> Tags { get; private set; } = [];
     public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.Now;

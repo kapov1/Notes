@@ -3,7 +3,7 @@
     <Project Path="src/Notes.Api/Notes.Api.csproj" />
     <Project Path="src/Notes.Application/Notes.Application.csproj" />
     <Project Path="src/Notes.Domain/Notes.Domain.csproj" />
-    <Project Path="src/Notes.Infrastrutcure/Notes.Infrastrutcure.csproj" />
+    <Project Path="src/Notes.Infrastructure/Notes.Infrastructure.csproj" />
     <Project Path="src/Notes.Shared/Notes.Shared.csproj" />
   </Folder>
 </Solution>

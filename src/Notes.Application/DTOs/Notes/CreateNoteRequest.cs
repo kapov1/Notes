@@ -1,17 +1,22 @@
-namespace Notes.Application.Common.DTOs;
+using Notes.Application.Common.Attributes;
 
-public class UpdateNoteRequest
+namespace Notes.Application.DTOs.Notes;
+
+public class CreateNoteRequest
 {
     [Required]
     [Range(1, int.MaxValue)]
-    public int Id { get; init; }
+    public int AuthorId { get; init; }
 
     [Required]
     [StringLength(100)]
+    [EmptyOrWhiteSpaces]
     public string Title { get; init; } = string.Empty;
 
     [Required]
+    [EmptyOrWhiteSpaces]
     public string Content { get; init; } = string.Empty;
 
+    [Required] //but can by empty
     public IEnumerable<Tags> Tags { get; init; } = [];
 }
