@@ -10,7 +10,7 @@ public class NoteResponse(Note note)
 
     public string Content { get; } = note.Content;
 
-    public IEnumerable<Tags> Tags { get; } = note.Tags;
+    public IEnumerable<Tag> Tags { get; } = note.Tags;
 
     public DateTimeOffset CreatedAt { get; } = note.CreatedAt;
 }

@@ -18,5 +18,6 @@ public class CreateNoteRequest
     public string Content { get; init; } = string.Empty;
 
     [Required] //but can by empty
-    public IEnumerable<Tags> Tags { get; init; } = [];
+    [TagNames]
+    public IEnumerable<string> Tags { get; init; } = [];
 }

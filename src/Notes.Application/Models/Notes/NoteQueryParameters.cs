@@ -13,7 +13,7 @@ public class NoteQueryParameters
 
     public string? Title { get; init; }
 
-    public List<Tags> Tags { get; init; } = [];
+    public List<Tag> Tags { get; init; } = [];
 
     public DateTimeOffset? CreatedFrom { get; init; }
 

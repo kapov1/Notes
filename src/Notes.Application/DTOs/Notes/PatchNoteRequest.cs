@@ -9,5 +9,6 @@ public class PatchNoteRequest
     [EmptyOrWhiteSpaces]
     public string? Content { get; init; } = string.Empty;
 
-    public IEnumerable<Tags>? Tags { get; init; } = [];
+    [TagNames]
+    public IEnumerable<Tag>? Tags { get; init; } = [];
 }

@@ -6,7 +6,7 @@ public class Note
         string title,
         int authorId,
         string content,
-        IEnumerable<Tags> tags)
+        IEnumerable<Tag> tags)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(title);
         ArgumentException.ThrowIfNullOrWhiteSpace(content);
@@ -21,7 +21,7 @@ public class Note
     public int AuthorId { get; private set; }
     public string Title { get; private set; } = string.Empty;
     public string Content { get; private set; } = string.Empty;
-    public IEnumerable<Tags> Tags { get; private set; } = [];
+    public IEnumerable<Tag> Tags { get; private set; } = [];
     public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.Now;
 
     public void UpdateTitle(string title)
@@ -38,5 +38,5 @@ public class Note
         Content = content;
     }
 
-    public void UpdateTags(IEnumerable<Tags> tags) => Tags = tags;
+    public void UpdateTags(IEnumerable<Tag> tags) => Tags = tags;
 }

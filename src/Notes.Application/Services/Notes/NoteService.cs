@@ -12,7 +12,7 @@ public class NoteService(
                 createRequest.Title,
                 createRequest.AuthorId,
                 createRequest.Content,
-                createRequest.Tags
+                createRequest.Tags.Select(tagName => new Tag(tagName))
             ),
             cancellationToken);
 
