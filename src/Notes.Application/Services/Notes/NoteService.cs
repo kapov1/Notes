@@ -1,15 +1,45 @@
 namespace Notes.Application.Services.Notes;
 
 public class NoteService(
-    INoteRepository noteRepository) : INoteService
+    INoteRepository noteRepository,
+    ITagRepository tagRepository) : INoteService
 {
+    private async Task<ICollection<Tag>> ResolveTagsAsync(
+        IEnumerable<string> tagNames,
+        CancellationToken cancellationToken)
+    {
+        var tagNamesLower = tagNames.Select(name => name.ToLower()).ToList();
+
+        var existingTags = await tagRepository.GetByNamesAsync(
+            tagNamesLower,
+            cancellationToken);
+
+        var existingTagNames = existingTags
+            .Select(t => t.Name.ToLower())
+            .ToHashSet();
+    
+        var missingTagNames = tagNamesLower
+            .Where(tag => !existingTagNames.Contains(tag))
+            .ToList();
+
+        var newTags = await tagRepository.CreateRangeAsync(
+            missingTagNames, 
+            cancellationToken);
+
+        var allTags = existingTags
+            .Concat(newTags)
+            .ToList();
+
+        return allTags;
+    }
+
     public async Task<Result<NoteResponse>> CreateAsync(
         CreateNoteRequest createRequest,
         CancellationToken cancellationToken)
     {
-        ICollection<Tag> tags = createRequest.Tags
-            .Select(tagName => new Tag(tagName))
-            .ToList();
+        var tags = await ResolveTagsAsync(
+            createRequest.Tags, 
+            cancellationToken);
 
         var createResult = await noteRepository.CreateAsync(
             new(
@@ -17,7 +47,7 @@ public class NoteService(
                 createRequest.AuthorId,
                 createRequest.Content,
                 tags),
-            cancellationToken);
+                cancellationToken);
 
         if (createResult.IsFailure)
         {

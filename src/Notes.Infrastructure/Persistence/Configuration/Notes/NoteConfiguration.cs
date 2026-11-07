@@ -20,7 +20,8 @@ public class NoteConfiguration : IEntityTypeConfiguration<Note>
 
         builder.HasOne<User>()
             .WithMany()
-            .HasForeignKey(n => n.AuthorId);
+            .HasForeignKey(n => n.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(n => n.Tags)
             .WithMany();

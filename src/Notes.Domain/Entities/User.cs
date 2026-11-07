@@ -15,7 +15,7 @@ public class User
     public void UpdateName(string name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        if (name.Length > 100) throw new InvalidOperationException();
+        if (name.Length > 100) throw new ArgumentOutOfRangeException();
 
         Name = name;
     }

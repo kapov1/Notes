@@ -6,9 +6,9 @@ global using Notes.Application.DTOs.Users;
 global using Notes.Application.Models.Notes;
 global using Notes.Application.Models.Users;
 global using Notes.Application.Common.Attributes;
+global using Notes.Application.Interfaces.Tags;
 
 global using Notes.Domain.Entities;
-global using Notes.Domain.Enums;
 
 global using Notes.Shared.Results;
 

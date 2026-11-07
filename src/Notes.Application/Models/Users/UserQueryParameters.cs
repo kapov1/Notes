@@ -11,5 +11,7 @@ public class UserQueryParameters
     [StringLength(100)]
     public string? Name { get; init; } = string.Empty;
 
-    public ListSortDirection? SortDirection { get; init; }
+    public ListSortDirection SortDirection { get; init; } = ListSortDirection.Ascending;
+
+    public IList<UserSortBy> SortBy { get; init; } = [UserSortBy.Name];
 }

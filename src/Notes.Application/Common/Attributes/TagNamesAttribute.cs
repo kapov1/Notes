@@ -1,5 +1,3 @@
-using System.Data.Common;
-
 namespace Notes.Application.Common.Attributes;
 
 public class TagNamesAttribute : ValidationAttribute
@@ -12,6 +10,11 @@ public class TagNamesAttribute : ValidationAttribute
         }
 
         var tagNames = (IEnumerable<string>)value;
+
+        if (!tagNames.Any())
+        {
+            return ValidationResult.Success;
+        }
 
         foreach (var tagName in tagNames)
         {

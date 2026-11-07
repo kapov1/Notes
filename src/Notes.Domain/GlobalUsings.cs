@@ -1,1 +1,0 @@
-global using Notes.Domain.Enums;
