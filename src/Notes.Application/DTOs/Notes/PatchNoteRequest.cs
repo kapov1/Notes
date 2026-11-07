@@ -10,5 +10,5 @@ public class PatchNoteRequest
     public string? Content { get; init; } = string.Empty;
 
     [TagNames]
-    public IEnumerable<Tag>? Tags { get; init; } = [];
+    public ICollection<Tag>? Tags { get; init; } = [];
 }

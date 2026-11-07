@@ -19,5 +19,5 @@ public class CreateNoteRequest
 
     [Required] //but can by empty
     [TagNames]
-    public IEnumerable<string> Tags { get; init; } = [];
+    public ICollection<string> Tags { get; init; } = [];
 }

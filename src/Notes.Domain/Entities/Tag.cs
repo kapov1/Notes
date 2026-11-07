@@ -5,6 +5,10 @@ public class Tag
     public Tag(string name)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
+        if (name.Length > 100)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
 
         Name = name;
     }

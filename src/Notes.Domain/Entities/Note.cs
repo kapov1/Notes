@@ -6,13 +6,21 @@ public class Note
         string title,
         int authorId,
         string content,
-        IEnumerable<Tag> tags)
+        ICollection<Tag> tags)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        if (title.Length > 100)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
         ArgumentException.ThrowIfNullOrWhiteSpace(content);
-        if (Id <= 0) throw new ArgumentException();
+        if (authorId <= 0)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
 
         Title = title;
+        Content = content;
         AuthorId = authorId;
         Tags = tags;
     }
@@ -21,12 +29,16 @@ public class Note
     public int AuthorId { get; private set; }
     public string Title { get; private set; } = string.Empty;
     public string Content { get; private set; } = string.Empty;
-    public IEnumerable<Tag> Tags { get; private set; } = [];
-    public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.Now;
+    public ICollection<Tag> Tags { get; private set; } = [];
+    public DateTimeOffset CreatedAt { get; private set; } = DateTimeOffset.UtcNow;
 
     public void UpdateTitle(string title)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(title);
+        if (title.Length > 100)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
 
         Title = title;
     }
@@ -38,5 +50,13 @@ public class Note
         Content = content;
     }
 
-    public void UpdateTags(IEnumerable<Tag> tags) => Tags = tags;
+    public void UpdateTags(ICollection<Tag> tags)
+    {
+        foreach (var tag in tags)
+        {
+            ArgumentException.ThrowIfNullOrWhiteSpace(tag.Name);
+        }
+
+        Tags = tags;
+    }
 }

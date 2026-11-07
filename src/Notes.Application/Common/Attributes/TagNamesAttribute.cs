@@ -1,3 +1,5 @@
+using System.Data.Common;
+
 namespace Notes.Application.Common.Attributes;
 
 public class TagNamesAttribute : ValidationAttribute
@@ -9,13 +11,17 @@ public class TagNamesAttribute : ValidationAttribute
             return ValidationResult.Success;
         }
 
-        var tags = (IEnumerable<string>)value;
+        var tagNames = (IEnumerable<string>)value;
 
-        foreach (var tag in tags)
+        foreach (var tagName in tagNames)
         {
-            if (string.IsNullOrWhiteSpace(tag))
+            if (string.IsNullOrWhiteSpace(tagName))
             {
-                return new("Tag cannot be empty or whitespace");
+                return new("The tag cannot be empty or whitespace.");
+            }
+            else if (tagName.Length > 100)
+            {
+                return new("The tag name must not exceed 100 characters.");
             }
         }
 

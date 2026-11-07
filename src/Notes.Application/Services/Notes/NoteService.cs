@@ -7,13 +7,16 @@ public class NoteService(
         CreateNoteRequest createRequest,
         CancellationToken cancellationToken)
     {
+        ICollection<Tag> tags = createRequest.Tags
+            .Select(tagName => new Tag(tagName))
+            .ToList();
+
         var createResult = await noteRepository.CreateAsync(
             new(
                 createRequest.Title,
                 createRequest.AuthorId,
                 createRequest.Content,
-                createRequest.Tags.Select(tagName => new Tag(tagName))
-            ),
+                tags),
             cancellationToken);
 
         if (createResult.IsFailure)

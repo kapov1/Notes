@@ -13,7 +13,7 @@ public class EmptyOrWhiteSpacesAttribute : ValidationAttribute
 
         if (string.IsNullOrWhiteSpace(valueString))
         {
-            return new("The cannot be empty or whitespace.");
+            return new("The value cannot be empty or whitespace.");
         }
 
         return ValidationResult.Success;
