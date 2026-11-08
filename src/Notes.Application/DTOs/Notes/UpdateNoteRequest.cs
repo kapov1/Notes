@@ -13,5 +13,5 @@ public class UpdateNoteRequest
 
     [Required] //but can by empty
     [TagNames]
-    public ICollection<Tag> Tags { get; init; } = [];
+    public ICollection<string> TagNames { get; init; } = [];
 }

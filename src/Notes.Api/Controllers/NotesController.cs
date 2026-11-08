@@ -19,7 +19,7 @@ public class NotesController(
 
     [HttpGet("{id:int}", Name = "GetNoteById")]
     public async Task<Results<Ok<NoteResponse>, NotFound<string>>> GetByIdAsync(
-        int id, 
+        [Required, Range(1, int.MaxValue)] int id, 
         CancellationToken cancellationToken)
     {
         var getResult = await noteService.GetByIdAsync(
@@ -48,7 +48,7 @@ public class NotesController(
 
     [HttpPut("{id:int}")]
     public async Task<Results<Ok<NoteResponse>, NotFound<string>>> UpdateAsync(
-        int id, 
+        [Required, Range(1, int.MaxValue)] int id, 
         [FromBody] UpdateNoteRequest updateRequest,
         CancellationToken cancellationToken)
     {
@@ -64,7 +64,7 @@ public class NotesController(
 
     [HttpPatch("{id:int}")]
     public async Task<Results<Ok<NoteResponse>, NotFound<string>>> PatchAsync(
-        int id, 
+        [Required, Range(1, int.MaxValue)] int id, 
         [FromBody] PatchNoteRequest patchRequest,
         CancellationToken cancellationToken)
     {
@@ -80,7 +80,7 @@ public class NotesController(
 
     [HttpDelete("{id:int}")]
     public async Task<Results<NoContent, NotFound<string>>> DeleteAsync(
-        int id, 
+        [Required, Range(1, int.MaxValue)] int id, 
         CancellationToken cancellationToken)
     {
         var deleteNoteResult = await noteService.DeleteAsync(

@@ -4,11 +4,11 @@ public class PatchNoteRequest
 {
     [StringLength(100)]
     [EmptyOrWhiteSpaces]
-    public string? Title { get; init; } = string.Empty;
+    public string? Title { get; init; }
 
     [EmptyOrWhiteSpaces]
-    public string? Content { get; init; } = string.Empty;
+    public string? Content { get; init; }
 
     [TagNames]
-    public ICollection<Tag>? Tags { get; init; } = [];
+    public ICollection<string>? TagNames { get; init; }
 }

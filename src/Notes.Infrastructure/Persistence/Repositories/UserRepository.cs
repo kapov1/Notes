@@ -4,20 +4,20 @@ public class UserRepository(
     AppDbContext dbContext) : IUserRepository
 {
     private IQueryable<User> ApplyFilters(
-        IQueryable<User> users,
+        IQueryable<User> query,
         UserQueryParameters queryParameters)
     {
         if (queryParameters.Name is not null)
         {
-            users = users
-                .Where(u => u.Name.Contains(queryParameters.Name));
+            query = query
+                .Where(u => u.Name.ToLower().Contains(queryParameters.Name.ToLower()));
         }
     
-        return users;
+        return query;
     }
 
     private IQueryable<User> ApplySorting(
-        IQueryable<User> users,
+        IQueryable<User> query,
         UserQueryParameters queryParameters)
     {
         if (queryParameters.SortBy.Count == 0)
@@ -32,8 +32,8 @@ public class UserRepository(
             GetSortExpression(queryParameters.SortBy[0]);
 
         var sortedUsers = isAscending
-            ? users.OrderBy(firstSortExpression)
-            : users.OrderByDescending(firstSortExpression);
+            ? query.OrderBy(firstSortExpression)
+            : query.OrderByDescending(firstSortExpression);
 
         for (int i = 1; i < queryParameters.SortBy.Count; i++)
         {
@@ -107,17 +107,17 @@ public class UserRepository(
         UserQueryParameters queryParameters, 
         CancellationToken cancellationToken)
     {
-        IQueryable<User> users = 
+        IQueryable<User> usersQuery = 
             dbContext.Users.AsNoTracking();
 
-        users = ApplyFilters(users, queryParameters);
+        usersQuery = ApplyFilters(usersQuery, queryParameters);
 
         int totalCount = 
-            await users.CountAsync(cancellationToken);
+            await usersQuery.CountAsync(cancellationToken);
 
-        users = ApplySorting(users, queryParameters);
+        usersQuery = ApplySorting(usersQuery, queryParameters);
 
-        var pagedUsers = await users  
+        var pagedUsers = await usersQuery  
             .Skip((queryParameters.Page - 1) * queryParameters.PageSize)
             .Take(queryParameters.PageSize)
             .ToListAsync(cancellationToken);

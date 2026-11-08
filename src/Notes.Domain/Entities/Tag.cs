@@ -10,7 +10,7 @@ public class Tag
             throw new ArgumentOutOfRangeException();
         }
 
-        Name = name;
+        Name = name.ToLower();
     }
 
     public int Id { get; private set; }

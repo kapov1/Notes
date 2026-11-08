@@ -17,13 +17,13 @@ public class NoteService(
         var existingTagNames = existingTags
             .Select(t => t.Name.ToLower())
             .ToHashSet();
-    
+
         var missingTagNames = tagNamesLower
             .Where(tag => !existingTagNames.Contains(tag))
             .ToList();
 
         var newTags = await tagRepository.CreateRangeAsync(
-            missingTagNames, 
+            missingTagNames,
             cancellationToken);
 
         var allTags = existingTags
@@ -38,7 +38,7 @@ public class NoteService(
         CancellationToken cancellationToken)
     {
         var tags = await ResolveTagsAsync(
-            createRequest.Tags, 
+            createRequest.Tags,
             cancellationToken);
 
         var createdNote = await noteRepository.CreateAsync(
@@ -108,9 +108,13 @@ public class NoteService(
         var updateNoteResult = await noteRepository.UpdateDetailsAsync(
             id,
             note =>
-            {   note.UpdateTitle(updateRequest.Title);
+            {
+                note.UpdateTitle(updateRequest.Title);
                 note.UpdateContent(updateRequest.Content);
-                note.UpdateTags(updateRequest.Tags);
+                note.UpdateTags(
+                    updateRequest.TagNames
+                        .Select(name => new Tag(name))
+                        .ToList());
             },
             cancellationToken);
 
@@ -134,7 +138,7 @@ public class NoteService(
         var updateNoteResult = await noteRepository.UpdateDetailsAsync(
             id,
             note =>
-            {   
+            {
                 if (patchRequest.Title is not null)
                 {
                     note.UpdateTitle(
@@ -147,11 +151,13 @@ public class NoteService(
                         patchRequest.Content);
                 }
 
-                if (patchRequest.Tags is not null)
+                if (patchRequest.TagNames is not null)
                 {
                     note.UpdateTags(
-                        patchRequest.Tags);
-                }   
+                        patchRequest.TagNames
+                        .Select(name => new Tag(name))
+                        .ToList());
+                }
             },
             cancellationToken);
 

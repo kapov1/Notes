@@ -76,7 +76,7 @@ public class UserService(
                 },
                 cancellationToken);
 
-        if (updateUserResult.IsSuccess)
+        if (updateUserResult.IsFailure)
         {
             return Result<UserResponse>.Failure(
                 updateUserResult.ErrorMessage);

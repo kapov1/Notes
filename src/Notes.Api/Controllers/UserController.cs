@@ -19,7 +19,7 @@ public class UserController(
 
     [HttpGet("{id:int}", Name = "GetUserById")]
     public async Task<Results<Ok<UserResponse>, NotFound<string>>> GetByIdAsync(
-        int id, 
+        [Required, Range(1, int.MaxValue)] int id, 
         CancellationToken cancellationToken)
     {
         var getUserResult = await userService.GetByIdAsync(
@@ -48,7 +48,7 @@ public class UserController(
 
     [HttpPut("{id:int}")]
     public async Task<Results<Ok<UserResponse>, NotFound<string>>> UpdateAsync(
-        int id,
+        [Required, Range(1, int.MaxValue)] int id,
         [FromBody] UpdateUserRequest updateRequest,
         CancellationToken cancellationToken)
     {
@@ -64,7 +64,7 @@ public class UserController(
 
     [HttpDelete("{id:int}")]
     public async Task<Results<NoContent, NotFound<string>>> DeleteAsync(
-        int id,
+        [Required, Range(1, int.MaxValue)] int id,
         CancellationToken cancellationToken)
     {
         var deleteResult = await userService.DeleteAsync(

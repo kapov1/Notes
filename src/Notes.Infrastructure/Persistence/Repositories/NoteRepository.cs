@@ -15,7 +15,7 @@ public class NoteRepository(
         if (queryParameters.Title is not null)
         {
             query = query.Where(
-                n => n.Title.Contains(queryParameters.Title));
+                n => n.Title.ToLower().Contains(queryParameters.Title.ToLower()));
         }
         if (queryParameters.CreatedFrom is not null)
         {
