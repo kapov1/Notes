@@ -1,4 +1,4 @@
-namespace Notes.Application.Interfaces.Notes;
+namespace Notes.Application.Interfaces.Services;
 
 public interface INoteService
 {

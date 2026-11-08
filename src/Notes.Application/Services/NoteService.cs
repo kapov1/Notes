@@ -1,4 +1,4 @@
-namespace Notes.Application.Services.Notes;
+namespace Notes.Application.Services;
 
 public class NoteService(
     INoteRepository noteRepository,
@@ -56,7 +56,6 @@ public class NoteService(
         }
 
         var createdNote = createResult.Value;
-
         NoteResponse noteResponse = new(createdNote);
 
         return Result<NoteResponse>.Success(noteResponse);

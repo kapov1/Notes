@@ -1,11 +1,10 @@
 global using Notes.Infrastructure.Persistence.Context;
+global using Notes.Infrastructure.Persistence.Repositories;
 
-global using Notes.Application.Interfaces.Notes;
+global using Notes.Application.Interfaces.Repositories;
 global using Notes.Application.Common.Models;
 global using Notes.Application.Models.Notes;
-global using Notes.Application.Interfaces.Users;
 global using Notes.Application.Models.Users;
-global using Notes.Application.Interfaces.Tags;
 
 global using Notes.Domain.Entities;
 

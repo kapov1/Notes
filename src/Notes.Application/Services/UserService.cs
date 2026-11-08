@@ -1,4 +1,4 @@
-namespace Notes.Application.Services.Users;
+namespace Notes.Application.Services;
 
 public class UserService(
     IUserRepository userRepository) : IUserService

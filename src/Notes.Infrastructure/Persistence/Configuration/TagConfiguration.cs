@@ -1,4 +1,4 @@
-namespace Notes.Infrastructure.Persistence.Configuration.Tags;
+namespace Notes.Infrastructure.Persistence.Configuration;
 
 public class TagConfiguration : IEntityTypeConfiguration<Tag>
 {

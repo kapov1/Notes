@@ -1,4 +1,4 @@
-namespace Notes.Application.Interfaces.Tags;
+namespace Notes.Application.Interfaces.Repositories;
 
 public interface ITagRepository
 {

@@ -1,7 +1,3 @@
-using Notes.Application.Interfaces.Users;
-using Notes.Infrastructure.Persistence.Repositories.Notes;
-using Notes.Infrastructure.Persistence.Repositories.Users;
-
 namespace Notes.Infrastructure;
 
 public static class DependencyInjection
@@ -20,6 +16,7 @@ public static class DependencyInjection
                 options.UseNpgsql(connection);
             })
             .AddScoped<INoteRepository, NoteRepository>()
-            .AddScoped<IUserRepository, UserRepository>();
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<ITagRepository, TagRepository>();
     }
 }

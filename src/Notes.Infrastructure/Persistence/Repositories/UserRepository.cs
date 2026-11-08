@@ -1,4 +1,4 @@
-namespace Notes.Infrastructure.Persistence.Repositories.Users;
+namespace Notes.Infrastructure.Persistence.Repositories;
 
 public class UserRepository(
     AppDbContext dbContext) : IUserRepository

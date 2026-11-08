@@ -1,4 +1,4 @@
-namespace Notes.Infrastructure.Persistence.Repositories.Tags;
+namespace Notes.Infrastructure.Persistence.Repositories;
 
 public class TagRepository(
     AppDbContext dbContext) : ITagRepository

@@ -1,41 +1,41 @@
-namespace Notes.Infrastructure.Persistence.Repositories.Notes;
+namespace Notes.Infrastructure.Persistence.Repositories;
 
 public class NoteRepository(
     AppDbContext dbContext) : INoteRepository
 {
     private IQueryable<Note> ApplyFilters(
-        IQueryable<Note> notes, 
+        IQueryable<Note> query, 
         NoteQueryParameters queryParameters)
     {
         if (queryParameters.AuthorId is not null)
         {
-            notes = notes.Where(
+            query = query.Where(
                 n => n.AuthorId == queryParameters.AuthorId);
         }
         if (queryParameters.Title is not null)
         {
-            notes = notes.Where(
+            query = query.Where(
                 n => n.Title.Contains(queryParameters.Title));
         }
         if (queryParameters.CreatedFrom is not null)
         {
-            notes = notes.Where(
+            query = query.Where(
                 n => n.CreatedAt >= queryParameters.CreatedFrom);
         }
         if (queryParameters.CreatedTo is not null)
         {
-            notes = notes.Where(
+            query = query.Where(
                 n => n.CreatedAt <= queryParameters.CreatedTo);
         }
         if (queryParameters.Tags is not null && 
             queryParameters.Tags.Any())
         {
-            notes = notes.Where(
+            query = query.Where(
                 n => n.Tags.All(
                     tag => queryParameters.Tags.Contains(tag)));
         }
 
-        return notes;
+        return query;
     }
 
     private Expression<Func<Note, object>> GetSortExpression(
@@ -51,7 +51,7 @@ public class NoteRepository(
     }
 
     private IQueryable<Note> ApplySorting(
-        IQueryable<Note> notes, 
+        IQueryable<Note> query, 
         NoteQueryParameters queryParameters)
     {
         if (queryParameters.SortBy.Count == 0)
@@ -66,8 +66,8 @@ public class NoteRepository(
             GetSortExpression(queryParameters.SortBy[0]);
 
         var sortedUsers = isAscending
-            ? notes.OrderBy(firstSortExpression)
-            : notes.OrderByDescending(firstSortExpression);
+            ? query.OrderBy(firstSortExpression)
+            : query.OrderByDescending(firstSortExpression);
             
         for (int i = 1; i < queryParameters.SortBy.Count; i++)
         {
@@ -141,17 +141,17 @@ public class NoteRepository(
         NoteQueryParameters queryParameters, 
         CancellationToken cancellationToken)
     {
-        IQueryable<Note> notes = 
+        IQueryable<Note> notesQuery = 
             dbContext.Notes.AsNoTracking();
         
-        notes = ApplyFilters(notes, queryParameters);
+        notesQuery = ApplyFilters(notesQuery, queryParameters);
 
         int notesTotalCount = 
-            await notes.CountAsync(cancellationToken);
+            await notesQuery.CountAsync(cancellationToken);
 
-        notes = ApplySorting(notes, queryParameters);
+        notesQuery = ApplySorting(notesQuery, queryParameters);
 
-        var pagedNotes = await notes
+        var pagedNotes = await notesQuery
             .Skip((queryParameters.Page - 1) * queryParameters.PageSize)
             .Take(queryParameters.PageSize)
             .ToListAsync(cancellationToken);

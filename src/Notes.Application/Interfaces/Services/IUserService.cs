@@ -1,4 +1,4 @@
-namespace Notes.Application.Interfaces.Users;
+namespace Notes.Application.Interfaces.Services;
 
 public interface IUserService
 {
