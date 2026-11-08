@@ -10,7 +10,7 @@ public interface IUserService
         int id, 
         CancellationToken cancellationToken);
 
-    Task<Result<UserResponse>> CreateAsync(
+    Task<UserResponse> CreateAsync(
         CreateUserRequest createRequest,
         CancellationToken cancellationToken);
 

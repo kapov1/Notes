@@ -58,23 +58,16 @@ public class UserRepository(
         };       
     }
 
-    public async Task<Result<User>> CreateAsync(
+    public async Task<User> CreateAsync(
         User user, 
         CancellationToken cancellationToken)
     {
-        try
-        {
-            await dbContext.Users.AddAsync(
-                user, cancellationToken);
+        await dbContext.Users.AddAsync(
+            user, cancellationToken);
 
-            await dbContext.SaveChangesAsync(cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
 
-            return Result<User>.Success(user);
-        }
-        catch(DbUpdateException)
-        {
-            return Result<User>.Failure("Failed to create user.");
-        }
+        return user;
     }
 
     public async Task<Result> DeleteAsync(

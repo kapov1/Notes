@@ -8,7 +8,7 @@ public static class DependencyInjection
     {
         string connection = configuration.GetConnectionString("DefaultConnection")
             ?? throw new InvalidOperationException(
-                "Database connection string 'DeafaultConnection' is not configured.");
+                "Database connection string 'DefaultConnection' is not configured.");
 
         return services
             .AddDbContext<AppDbContext>(options =>

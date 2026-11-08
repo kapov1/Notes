@@ -82,23 +82,16 @@ public class NoteRepository(
         return sortedUsers;
     }
 
-    public async Task<Result<Note>> CreateAsync(
+    public async Task<Note> CreateAsync(
         Note note, 
         CancellationToken cancellationToken)
     {
-        try
-        {
-            await dbContext.Notes.AddAsync(
-                note, cancellationToken);
+        await dbContext.Notes.AddAsync(
+            note, cancellationToken);
 
-            await dbContext.SaveChangesAsync(cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
 
-            return Result<Note>.Success(note);
-        }
-        catch(DbUpdateException)
-        {
-            return Result<Note>.Failure("Failed to create note.");
-        }
+        return note;
     }
 
     public async Task<Result> DeleteAsync(

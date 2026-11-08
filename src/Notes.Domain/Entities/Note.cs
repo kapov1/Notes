@@ -59,4 +59,6 @@ public class Note
 
         Tags = tags;
     }
+
+    protected Note() { }
 }

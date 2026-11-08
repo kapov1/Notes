@@ -3,24 +3,17 @@ namespace Notes.Application.Services;
 public class UserService(
     IUserRepository userRepository) : IUserService
 {
-    public async Task<Result<UserResponse>> CreateAsync(
+    public async Task<UserResponse> CreateAsync(
         CreateUserRequest createRequest, 
         CancellationToken cancellationToken)
     {
-        var createUserResult = await userRepository.CreateAsync(
+        var createdUser = await userRepository.CreateAsync(
             new(createRequest.Name),
             cancellationToken);
 
-        if (createUserResult.IsFailure)
-        {
-            return Result<UserResponse>.Failure(
-                createUserResult.ErrorMessage);
-        }
+        UserResponse response = new(createdUser);
 
-        var ceratedUser = createUserResult.Value;
-        UserResponse response = new(ceratedUser);
-
-        return Result<UserResponse>.Success(response);
+        return response;
     }
 
     public async Task<Result> DeleteAsync(

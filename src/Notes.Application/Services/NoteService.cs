@@ -33,7 +33,7 @@ public class NoteService(
         return allTags;
     }
 
-    public async Task<Result<NoteResponse>> CreateAsync(
+    public async Task<NoteResponse> CreateAsync(
         CreateNoteRequest createRequest,
         CancellationToken cancellationToken)
     {
@@ -41,7 +41,7 @@ public class NoteService(
             createRequest.Tags, 
             cancellationToken);
 
-        var createResult = await noteRepository.CreateAsync(
+        var createdNote = await noteRepository.CreateAsync(
             new(
                 createRequest.Title,
                 createRequest.AuthorId,
@@ -49,16 +49,9 @@ public class NoteService(
                 tags),
                 cancellationToken);
 
-        if (createResult.IsFailure)
-        {
-            return Result<NoteResponse>.Failure(
-                createResult.ErrorMessage);
-        }
-
-        var createdNote = createResult.Value;
         NoteResponse noteResponse = new(createdNote);
 
-        return Result<NoteResponse>.Success(noteResponse);
+        return noteResponse;
     }
 
     public async Task<Result> DeleteAsync(

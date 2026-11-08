@@ -10,7 +10,7 @@ public interface INoteRepository
         int id,
         CancellationToken cancellationToken);
 
-    Task<Result<Note>> CreateAsync(
+    Task<Note> CreateAsync(
         Note note,
         CancellationToken cancellationToken);
 

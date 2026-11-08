@@ -2,7 +2,7 @@ namespace Notes.Application.Interfaces.Repositories;
 
 public interface IUserRepository
 {
-    Task<Result<User>> CreateAsync(
+    Task<User> CreateAsync(
         User user,
         CancellationToken cancellationToken);
 
