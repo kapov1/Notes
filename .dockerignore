@@ -1,0 +1,16 @@
+.git/
+.gitignore
+.continue
+.vscode
+.idea
+.vs
+.github/
+
+**/bin/
+**/obj/
+
+LICENSE
+README.md
+
+Dockerfile
+.dockerignore
